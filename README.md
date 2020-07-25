@@ -37,7 +37,7 @@ be inferred from an <code>as</code> prop.
 
 ## Quick start
 
-```jsx harmony
+```tsx
 import forwardRefAs from 'forward-ref-as'
 import type {AsProp} from 'forward-ref-as'
 
