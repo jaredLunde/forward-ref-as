@@ -1,11 +1,18 @@
 <hr>
-<div align="center">
-  <h1 align="center">
+<div>
+  <h1>
     forwardRefAs()
   </h1>
 </div>
 
-<p align="center">
+<blockquote>
+A wrapper around <code>React.forwardRef()</code> that allows HTML attributes and prop types to
+be inferred from an <code>as</code> prop.
+</blockquote>
+
+<pre>npm i forward-ref-as</pre>
+
+<p>
   <a href="https://bundlephobia.com/result?p=forward-ref-as">
     <img alt="Bundlephobia" src="https://img.shields.io/bundlephobia/minzip/forward-ref-as?style=for-the-badge&labelColor=24292e">
   </a>
@@ -26,11 +33,7 @@
   </a>
 </p>
 
-<pre align="center">npm i forward-ref-as</pre>
 <hr>
-
-A wrapper around `React.forwardRef()` that allows HTML attributes and prop types to
-be inferred from an `as` prop.
 
 ## Quick start
 
