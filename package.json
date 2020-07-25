@@ -1,0 +1,146 @@
+{
+  "name": "forward-ref-as",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jaredLunde/forward-ref-as#readme",
+  "repository": "github:jaredLunde/forward-ref-as",
+  "bugs": "https://github.com/jaredLunde/forward-ref-as/issues",
+  "author": "Jared Lunde <jared.lunde@gmail.com> (https://jaredLunde.com)",
+  "license": "MIT",
+  "description": "A wrapper around React.forwardRef that allows HTML attributes and prop types to be derived from the as prop.",
+  "keywords": [
+    "react",
+    "react component",
+    "forward ref as"
+  ],
+  "main": "dist/main/index.js",
+  "module": "dist/module/index.js",
+  "unpkg": "dist/umd/forward-ref-as.js",
+  "source": "src/index.tsx",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "browser": "./dist/module/index.js",
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/main/index.js",
+      "umd": "./dist/umd/forward-ref-as.js",
+      "source": "./src/index.tsx",
+      "types": "./types/index.d.ts",
+      "default": "./dist/main/index.js"
+    },
+    "./package.json": "./package.json",
+    "./": "./"
+  },
+  "files": [
+    "/dist",
+    "/src",
+    "/types"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "lundle build",
+    "check-types": "lundle check-types",
+    "dev": "lundle build -f module,cjs -w",
+    "format": "prettier --write \"{,!(node_modules|dist|coverage)/**/}*.{ts,tsx,js,jsx,md,yml,json}\"",
+    "lint": "eslint . --ext .ts,.tsx",
+    "prepublishOnly": "cli-confirm \"Did you run 'yarn release' first? (y/N)\"",
+    "prerelease": "npm run validate && npm run build",
+    "release": "git add . && standard-version -a",
+    "test": "jest",
+    "validate": "lundle check-types && npm run lint && jest --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lundle check-types && lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{md,yml,json}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "lunde"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist",
+    "/types",
+    "test",
+    "*.config.js"
+  ],
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "src",
+      "test"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/?(*.)test.{ts,tsx}"
+    ],
+    "collectCoverageFrom": [
+      "**/src/**/*.{ts,tsx}"
+    ],
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ],
+    "snapshotResolver": "./test/resolve-snapshot.js",
+    "globals": {
+      "__DEV__": true
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "bracketSpacing": false
+  },
+  "devDependencies": {
+    "@lunde/create-react-pkg": "^1.5.4",
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@testing-library/react-hooks": "latest",
+    "@testing-library/user-event": "latest",
+    "babel-jest": "latest",
+    "cli-confirm": "latest",
+    "cz-conventional-changelog": "latest",
+    "jest": "latest",
+    "eslint": "latest",
+    "eslint-config-lunde": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "lundle": "latest",
+    "prettier": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-test-renderer": "latest",
+    "standard-version": "latest",
+    "@types/jest": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=16.8"
+  }
+}
