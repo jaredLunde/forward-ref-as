@@ -6,7 +6,7 @@ import * as React from 'react'
  * @example
  * forwardRefAs<ButtonProps, 'button'>(ButtonComponent)
  */
-export declare function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
+declare function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
   render: React.RefForwardingComponent<
     DefaultAs extends keyof JSX.IntrinsicElements
       ? FromReactType<DefaultAs>
@@ -14,6 +14,7 @@ export declare function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
     Props
   >
 ): ForwardRefAsExoticComponent<Props, DefaultAs>
+export default forwardRefAs
 /**
  * This is a signature that matches `ForwardRefExoticComponent`, but allows for
  * inheriting attributes via the "as" prop and gets rid of `propTypes` because,
