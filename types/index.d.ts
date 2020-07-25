@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 /**
  * A wrapper around `React.forwardRef` that allows HTML attributes and prop types to be derived from the `as` prop.
  * @param render A React ref forwarding component
@@ -7,33 +6,33 @@ import * as React from 'react'
  * @example
  * forwardRefAs<ButtonProps, 'button'>(ButtonComponent)
  */
-function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
+export declare function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
   render: React.RefForwardingComponent<
     DefaultAs extends keyof JSX.IntrinsicElements
       ? FromReactType<DefaultAs>
       : DefaultAs,
     Props
   >
-) {
-  return React.forwardRef<any, Props>(render) as ForwardRefAsExoticComponent<
-    Props,
-    DefaultAs
-  >
-}
-
-export default forwardRefAs
-
+): ForwardRefAsExoticComponent<Props, DefaultAs>
 /**
  * This is a signature that matches `ForwardRefExoticComponent`, but allows for
  * inheriting attributes via the "as" prop and gets rid of `propTypes` because,
  * dang it, this is TypeScript! Get that outta here.
  */
-export type ForwardRefAsExoticComponent<Props, DefaultAs extends AsProp> = Pick<
+export declare type ForwardRefAsExoticComponent<
+  Props,
+  DefaultAs extends AsProp
+> = Pick<
   React.ForwardRefExoticComponent<DefaultAs>,
   Exclude<keyof React.ForwardRefExoticComponent<DefaultAs>, 'defaultProps'>
 > & {
   <As extends AsProp = DefaultAs>(
-    props: Prefer<{as?: As} & Props, React.ComponentProps<As>> &
+    props: Prefer<
+      {
+        as?: As
+      } & Props,
+      React.ComponentProps<As>
+    > &
       React.RefAttributes<
         As extends keyof JSX.IntrinsicElements ? FromReactType<As> : As
       >
@@ -44,7 +43,6 @@ export type ForwardRefAsExoticComponent<Props, DefaultAs extends AsProp> = Pick<
     Partial<React.ComponentPropsWithoutRef<DefaultAs>>
   displayName: string
 }
-
 /**
  * Maps a keyof JSX.IntrinsicElement (e.g. 'div' or 'svg') or a
  * React.ComponentType to it's type.
@@ -54,7 +52,7 @@ export type ForwardRefAsExoticComponent<Props, DefaultAs extends AsProp> = Pick<
  *   FromReactType<"svg"> ==> SVGSVGElement
  *   FromReactType<React.FC<P>. ==> React.FC<P>
  */
-export type FromReactType<
+export declare type FromReactType<
   T extends React.ReactType
 > = T extends keyof JSX.IntrinsicElements
   ? JSX.IntrinsicElements[T] extends React.DetailedHTMLFactory<
@@ -66,13 +64,11 @@ export type FromReactType<
     ? V
     : never
   : T
-
 /**
  * Omits an props in `T` that are already present in `P`
  */
-export type Prefer<P, T> = P & Omit<T, keyof P>
-
+export declare type Prefer<P, T> = P & Omit<T, keyof P>
 /**
  * These are the types accepted by the "as" prop in layout components
  */
-export type AsProp = React.ReactType | keyof JSX.IntrinsicElements
+export declare type AsProp = React.ReactType | keyof JSX.IntrinsicElements

@@ -1,16 +1,21 @@
 {
   "name": "forward-ref-as",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/jaredLunde/forward-ref-as#readme",
   "repository": "github:jaredLunde/forward-ref-as",
   "bugs": "https://github.com/jaredLunde/forward-ref-as/issues",
   "author": "Jared Lunde <jared.lunde@gmail.com> (https://jaredLunde.com)",
   "license": "MIT",
-  "description": "A wrapper around React.forwardRef that allows HTML attributes and prop types to be derived from the as prop.",
+  "description": "A wrapper around React.forwardRef() that allows HTML attributes and prop types to be derived from the as prop.",
   "keywords": [
     "react",
     "react component",
-    "forward ref as"
+    "forward ref as",
+    "react forward ref",
+    "react forward ref as prop",
+    "as prop",
+    "react as prop",
+    "forward ref as prop"
   ],
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
