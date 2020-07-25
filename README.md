@@ -47,6 +47,10 @@ const Button = forwardRefAs<ButtonProps, 'button'>(
   ({as: As = 'button', ...props}, ref) => <As ref={ref} {...props} />
 )
 
+interface ButtonProps {
+  as?: AsProp
+}
+
 // ✅ Will pass type checking and autocomplete correctly
 <Button as='a' href='https://jaredLunde.com'/>
 
