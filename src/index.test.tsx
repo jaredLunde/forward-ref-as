@@ -24,6 +24,17 @@ describe('forwardRefAs()', () => {
     expect(true).toBe(true)
   })
 
+  it('should infer types from custom component', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const Link = (props: {to: string}) => null
+    const MyComponent = forwardRefAs<{as?: AsProp}>(
+      ({as: As = 'div', ...props}, ref) => <As ref={ref} {...props} />
+    )
+
+    render(<MyComponent as={Link} to='/home' />)
+    expect(true).toBe(true)
+  })
+
   it('should disallow types', () => {
     const MyComponent = forwardRefAs<{as?: AsProp}>(
       ({as: As = 'div', ...props}, ref) => <As ref={ref} {...props} />
