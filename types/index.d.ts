@@ -57,6 +57,15 @@ export declare type PropsOf<
  * These are the types accepted by the "as" prop in layout components
  */
 export declare type AsProp = React.ReactType | keyof JSX.IntrinsicElements
+/**
+ * Maps a keyof JSX.IntrinsicElement (e.g. 'div' or 'svg') or a
+ * React.ComponentType to it's type.
+ *
+ * For example:
+ *   FromReactType<"div"> ==> HTMLDivElement
+ *   FromReactType<"svg"> ==> SVGSVGElement
+ *   FromReactType<React.FC<P>. ==> React.FC<P>
+ */
 export declare type FromReactType<
   T extends React.ReactType
 > = T extends keyof JSX.IntrinsicElements
