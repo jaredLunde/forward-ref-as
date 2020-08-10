@@ -7,7 +7,12 @@ import * as React from 'react'
  * forwardRefAs<ButtonProps, 'button'>(ButtonComponent)
  */
 declare function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
-  render: React.RefForwardingComponent<PropsOf<DefaultAs>, Props>
+  render: React.ForwardRefRenderFunction<
+    DefaultAs extends keyof JSX.IntrinsicElements
+      ? FromReactType<DefaultAs>
+      : DefaultAs,
+    Props
+  >
 ): ForwardRefAsExoticComponent<Props, DefaultAs>
 export default forwardRefAs
 /**
@@ -52,3 +57,15 @@ export declare type PropsOf<
  * These are the types accepted by the "as" prop in layout components
  */
 export declare type AsProp = React.ReactType | keyof JSX.IntrinsicElements
+export declare type FromReactType<
+  T extends React.ReactType
+> = T extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[T] extends React.DetailedHTMLFactory<
+      React.HTMLAttributes<infer U>,
+      infer U
+    >
+    ? U
+    : JSX.IntrinsicElements[T] extends React.SVGProps<infer V>
+    ? V
+    : never
+  : T

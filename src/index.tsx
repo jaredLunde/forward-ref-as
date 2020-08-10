@@ -8,7 +8,12 @@ import * as React from 'react'
  * forwardRefAs<ButtonProps, 'button'>(ButtonComponent)
  */
 function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
-  render: React.RefForwardingComponent<PropsOf<DefaultAs>, Props>
+  render: React.ForwardRefRenderFunction<
+    DefaultAs extends keyof JSX.IntrinsicElements
+      ? FromReactType<DefaultAs>
+      : DefaultAs,
+    Props
+  >
 ) {
   return React.forwardRef<any, Props>(render) as ForwardRefAsExoticComponent<
     Props,
@@ -56,3 +61,25 @@ export type PropsOf<
  * These are the types accepted by the "as" prop in layout components
  */
 export type AsProp = React.ReactType | keyof JSX.IntrinsicElements
+
+/**
+ * Maps a keyof JSX.IntrinsicElement (e.g. 'div' or 'svg') or a
+ * React.ComponentType to it's type.
+ *
+ * For example:
+ *   FromReactType<"div"> ==> HTMLDivElement
+ *   FromReactType<"svg"> ==> SVGSVGElement
+ *   FromReactType<React.FC<P>. ==> React.FC<P>
+ */
+export type FromReactType<
+  T extends React.ReactType
+> = T extends keyof JSX.IntrinsicElements
+  ? JSX.IntrinsicElements[T] extends React.DetailedHTMLFactory<
+      React.HTMLAttributes<infer U>,
+      infer U
+    >
+    ? U
+    : JSX.IntrinsicElements[T] extends React.SVGProps<infer V>
+    ? V
+    : never
+  : T
