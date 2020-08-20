@@ -36,11 +36,17 @@ export type ForwardRefAsExoticComponent<Props, DefaultAs extends AsProp> = Pick<
     props: Prefer<{as?: As} & Props, React.ComponentProps<As>> &
       React.RefAttributes<PropsOf<As>>
   ): JSX.Element | null
-  defaultProps: {
+  defaultProps?: {
     as?: AsProp
   } & Partial<Props> &
     Partial<React.ComponentPropsWithoutRef<DefaultAs>>
-  displayName: string
+  displayName?: string
+  propTypes?: React.WeakValidationMap<
+    {
+      as?: AsProp
+    } & Partial<Props> &
+      Partial<React.ComponentPropsWithoutRef<DefaultAs>>
+  >
 }
 
 /**
