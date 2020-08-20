@@ -36,11 +36,17 @@ export declare type ForwardRefAsExoticComponent<
     > &
       React.RefAttributes<PropsOf<As>>
   ): JSX.Element | null
-  defaultProps: {
+  defaultProps?: {
     as?: AsProp
   } & Partial<Props> &
     Partial<React.ComponentPropsWithoutRef<DefaultAs>>
-  displayName: string
+  displayName?: string
+  propTypes?: React.WeakValidationMap<
+    {
+      as?: AsProp
+    } & Partial<Props> &
+      Partial<React.ComponentPropsWithoutRef<DefaultAs>>
+  >
 }
 /**
  * Omits an props in `T` that are already present in `P`
