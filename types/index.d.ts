@@ -14,25 +14,19 @@ declare function forwardRef<P, T extends AsProp = 'div'>(
 ): ComponentWithAs<T, P>
 export declare type AsProp = React.ElementType
 export declare type PropsOf<T extends AsProp> = React.ComponentProps<T>
-declare type AddProps<P> = React.PropsWithChildren<P>
-declare type AddTProps<T extends AsProp> = PropsOf<T>
 export interface ComponentWithAs<T extends AsProp, P> {
   <TT extends AsProp>(
     props: {
       as?: TT
-    } & (PropsOf<T> extends {
-      transition?: any
-    }
-      ? Omit<P, 'transition'>
-      : P) &
+    } & P &
       Omit<PropsOf<TT>, keyof PropsOf<T>> &
-      Omit<AddTProps<T>, keyof P>
+      Omit<PropsOf<T>, keyof P>
   ): JSX.Element
   displayName?: string
-  propTypes?: React.WeakValidationMap<AddProps<P> & AddTProps<T>>
+  propTypes?: React.WeakValidationMap<React.PropsWithChildren<P> & PropsOf<T>>
   contextTypes?: React.ValidationMap<any>
-  defaultProps?: AddProps<P> &
-    AddTProps<T> & {
+  defaultProps?: React.PropsWithChildren<P> &
+    PropsOf<T> & {
       as?: AsProp
     }
   id?: string

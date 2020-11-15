@@ -21,22 +21,16 @@ export type AsProp = React.ElementType
 
 export type PropsOf<T extends AsProp> = React.ComponentProps<T>
 
-type AddProps<P> = React.PropsWithChildren<P>
-
-type AddTProps<T extends AsProp> = PropsOf<T>
-
 export interface ComponentWithAs<T extends AsProp, P> {
   <TT extends AsProp>(
-    props: {as?: TT} & (PropsOf<T> extends {transition?: any}
-      ? Omit<P, 'transition'>
-      : P) &
+    props: {as?: TT} & P &
       Omit<PropsOf<TT>, keyof PropsOf<T>> &
-      Omit<AddTProps<T>, keyof P>
+      Omit<PropsOf<T>, keyof P>
   ): JSX.Element
   displayName?: string
-  propTypes?: React.WeakValidationMap<AddProps<P> & AddTProps<T>>
+  propTypes?: React.WeakValidationMap<React.PropsWithChildren<P> & PropsOf<T>>
   contextTypes?: React.ValidationMap<any>
-  defaultProps?: AddProps<P> & AddTProps<T> & {as?: AsProp}
+  defaultProps?: React.PropsWithChildren<P> & PropsOf<T> & {as?: AsProp}
   id?: string
 }
 
