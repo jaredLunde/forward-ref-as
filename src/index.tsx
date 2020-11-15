@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 /**
- * A wrapper around `React.forwardRef` that allows HTML attributes and prop types to be derived from the `as` prop.
+ * A wrapper around `React.forwardRef` that allows HTML attributes and prop types to
+ * be derived from the `as` prop.
  * @param render A React ref forwarding component
  *
  * @example
@@ -15,38 +16,30 @@ function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
     Props
   >
 ) {
-  return React.forwardRef<any, Props>(render) as ForwardRefAsExoticComponent<
-    Props,
-    DefaultAs
-  >
+  return (React.forwardRef<any, Props>(
+    render
+  ) as any) as ForwardRefAsExoticComponent<Props, DefaultAs>
 }
 
 export default forwardRefAs
 
 /**
- * This is a signature that matches `ForwardRefExoticComponent`, but allows for
- * inheriting attributes via the "as" prop and gets rid of `propTypes` because,
- * dang it, this is TypeScript! Get that outta here.
+ * This is a signature that matches `ForwardRefExoticComponent`.
  */
-export type ForwardRefAsExoticComponent<Props, DefaultAs extends AsProp> = Pick<
-  React.ForwardRefExoticComponent<DefaultAs>,
-  Exclude<keyof React.ForwardRefExoticComponent<DefaultAs>, 'defaultProps'>
-> & {
+export type ForwardRefAsExoticComponent<
+  Props,
+  DefaultAs extends AsProp,
+  PartialProps = Partial<Props> &
+    Partial<React.ComponentPropsWithoutRef<DefaultAs>>
+> = {
   <As extends AsProp = DefaultAs>(
-    props: Prefer<{as?: As} & Props, React.ComponentProps<As>> &
+    props: Prefer<{as?: As} & Props, PropsOf<As>> &
       React.RefAttributes<PropsOf<As>>
   ): JSX.Element | null
-  defaultProps?: {
-    as?: AsProp
-  } & Partial<Props> &
-    Partial<React.ComponentPropsWithoutRef<DefaultAs>>
+  defaultProps?: PartialProps
   displayName?: string
-  propTypes?: React.WeakValidationMap<
-    {
-      as?: AsProp
-    } & Partial<Props> &
-      Partial<React.ComponentPropsWithoutRef<DefaultAs>>
-  >
+  propTypes?: React.WeakValidationMap<PartialProps>
+  readonly $$typeof: symbol
 }
 
 /**
@@ -58,7 +51,7 @@ export type Prefer<P, T> = P & Omit<T, keyof P>
  * Extracts the props of a component type
  * Credit: Emotion
  */
-export type PropsOf<
+type PropsOf<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   E extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
 > = JSX.LibraryManagedAttributes<E, React.ComponentPropsWithRef<E>>
@@ -66,7 +59,7 @@ export type PropsOf<
 /**
  * These are the types accepted by the "as" prop in layout components
  */
-export type AsProp = React.ReactType | keyof JSX.IntrinsicElements
+export type AsProp = keyof JSX.IntrinsicElements | React.ComponentType<any>
 
 /**
  * Maps a keyof JSX.IntrinsicElement (e.g. 'div' or 'svg') or a
@@ -78,7 +71,7 @@ export type AsProp = React.ReactType | keyof JSX.IntrinsicElements
  *   FromReactType<React.FC<P>. ==> React.FC<P>
  */
 export type FromReactType<
-  T extends React.ReactType
+  T extends React.ElementType
 > = T extends keyof JSX.IntrinsicElements
   ? JSX.IntrinsicElements[T] extends React.DetailedHTMLFactory<
       React.HTMLAttributes<infer U>,
