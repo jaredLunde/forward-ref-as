@@ -6,7 +6,7 @@ import * as React from 'react'
 declare function forwardRef<P, T extends AsProp = 'div'>(
   component: (
     props: React.PropsWithChildren<P> &
-      Omit<PropsOf<T>, keyof P | 'color' | 'ref'> & {
+      Omit<PropsOf<T>, keyof P | 'ref'> & {
         as?: AsProp
       },
     ref: React.Ref<any>
