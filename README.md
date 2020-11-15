@@ -52,10 +52,7 @@ interface ButtonProps {
 }
 
 // ✅ Will pass type checking and autocomplete correctly
-<Button as='a' href='https://jaredLunde.com'/>
-
-// ❌ Will fail type checking and not autocomplete "href"
-<Button href='#'>
+;<Button as='a' href='https://jaredLunde.com' />
 ```
 
 ## API
@@ -65,17 +62,6 @@ interface ButtonProps {
 A wrapper around `React.forwardRef()` with the same call signature, but
 a type signature that allows `as` prop HTML attributes and React prop types
 to be inferred.
-
-```typescript
-function forwardRefAs<Props, DefaultAs extends AsProp = 'div'>(
-  render: React.RefForwardingComponent<
-    DefaultAs extends keyof JSX.IntrinsicElements
-      ? FromReactType<DefaultAs>
-      : DefaultAs,
-    Props
-  >
-): ForwardRefAsExoticComponent<Props, DefaultAs>
-```
 
 ## LICENSE
 

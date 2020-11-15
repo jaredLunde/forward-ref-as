@@ -20,7 +20,7 @@ describe('forwardRefAs()', () => {
       ({as: As = 'div', ...props}, ref) => <As ref={ref} {...props} />
     )
 
-    render(<MyComponent as='a' href='#foo' />)
+    render(<MyComponent as='a' href='/' onClick={(e) => {}} />)
     expect(true).toBe(true)
   })
 
@@ -32,16 +32,6 @@ describe('forwardRefAs()', () => {
     )
 
     render(<MyComponent as={Link} to='/home' />)
-    expect(true).toBe(true)
-  })
-
-  it('should disallow types', () => {
-    const MyComponent = forwardRefAs<{as?: AsProp}>(
-      ({as: As = 'div', ...props}, ref) => <As ref={ref} {...props} />
-    )
-
-    // @ts-expect-error
-    render(<MyComponent href='#foo' />)
     expect(true).toBe(true)
   })
 })
