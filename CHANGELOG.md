@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/jaredLunde/forward-ref-as/compare/v1.0.6...v2.0.0) (2021-02-15)
+
+### ⚠ BREAKING CHANGES
+
+- Changes the order of type arguments as well as the requirement for an as prop
+  definition
+
+### Features
+
+- make v2 ([066424f](https://github.com/jaredLunde/forward-ref-as/commit/066424f1d64b9575ace4633c0d706820937681c3))
+
 ### [1.0.7](https://github.com/jaredLunde/forward-ref-as/compare/v1.0.6...v1.0.7) (2020-11-15)
 
 ### [1.0.6](https://github.com/jaredLunde/forward-ref-as/compare/v1.0.5...v1.0.6) (2020-11-15)
