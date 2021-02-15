@@ -39,17 +39,12 @@ be inferred from an <code>as</code> prop.
 
 ```tsx
 import forwardRefAs from 'forward-ref-as'
-import type {AsProp} from 'forward-ref-as'
 
 // Forwards `ref` to the underlying button and adds strong
 // types for the `as` prop.
-const Button = forwardRefAs<ButtonProps, 'button'>(
+const Button = forwardRefAs<'button', ButtonProps>(
   ({as: As = 'button', ...props}, ref) => <As ref={ref} {...props} />
 )
-
-interface ButtonProps {
-  as?: AsProp
-}
 
 // ✅ Will pass type checking and autocomplete correctly
 ;<Button as='a' href='https://jaredLunde.com' />
